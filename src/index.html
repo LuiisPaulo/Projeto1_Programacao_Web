@@ -29,15 +29,44 @@
             <option value="C">Categoria C</option>
             <!-- Adicione mais opções conforme necessário -->
           </select>
-          <label for="infrações">Infrações Cometidas:</label>
-          <textarea
-            name="infrações"
-            id="infrações"
-            rows="4"
-            placeholder="Descreva as infrações e suas datas"
-          ></textarea>
-          <button type="submit">Calcular</button>
+         </form>
+        <form action="#">
+          <label for="infracao">Infração Cometida:</label>
+          <select name="infracao_cometida" id="infracao_cometida" onchange="Display()">
+            <option value="velocida_excesso">Excesso de Velocidade</option>
+            <option value="sinal_vermelho">Ultrapassagem Sinal Vermelho</option>
+            <option value="estacionar_proibido">Estacionar em local proibido</option>
+            <option value="falta_cinto">Falta de uso do cinto de segunrança</option>
+            <option value="Outro">Outro</option>
+          </select>
+          <section class="texto_outro" id="texto_outro">
+            <label for="text_outro">Outro:</label>
+            <textarea name="text_outro" id="text_outro" rows="2" cols="4" min="" max="" placeholder="Descreva a(s) infração(ões) cometida(s)"></textarea>
+          </section>
         </form>
+        <!-- Script para controla o aparecimento da caixa de texto conforme a escolha do usuário
+          Estrutura condicional para realizar o controle (if) -->
+        <script>
+        function Display(){
+          var option = document.getElementById("infracao_cometida").value;
+          var texto = document.getElementById("texto_outro");
+
+          if(option != "Outro"){
+            texto.style.display = "none";
+          }
+          if(option == "Outro"){
+            texto.style.display = "block";
+          }
+        }
+        </script>
+        <form action="#">
+          <label for="date_infracao">Data da Infração:</label>
+          <input type="date" name="data_infracao" id="data_infracao" min="2020-01-01" max="2024-12-31" value="">
+          <span class="validity"></span>
+        </form>
+        <!-- Podemos colocar também em cima da infração -->
+        <br>
+        <button type="submit">Calcular</button>
       </section>
     </main>
     <footer>

@@ -35,8 +35,18 @@ main {
     margin: 0 auto;
 }
 
-form label,
-form textarea,
+form label{
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+form textarea{
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
 form select {
     display: block;
     margin-bottom: 10px;

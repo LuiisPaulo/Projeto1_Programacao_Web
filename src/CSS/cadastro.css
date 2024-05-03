@@ -17,6 +17,27 @@ a{
     flex-direction: row;
 }
 
+.name input{
+    border-radius: 15px;
+    border: none;
+    width: 250px;
+    height: 40px;
+    padding-left: 15px;
+    background-color: #1e1c2e;
+    color: #b6b6b6;
+    margin-bottom: 15px;
+}
+
+.cpf input{
+    border-radius: 15px;
+    border: none;
+    width: 250px;
+    height: 40px;
+    padding-left: 15px;
+    background-color: #1e1c2e;
+    color: #b6b6b6;
+    margin-bottom: 15px;
+}
 .email input{
     border-radius: 15px;
     border: none;
@@ -37,7 +58,16 @@ a{
     color: #b6b6b6;
     margin-top: 15px;
 }
-
+.password_confirm input{
+    border-radius: 15px;
+    border: none;
+    width: 250px;
+    height: 40px;
+    padding-left: 15px;
+    background-color: #1e1c2e;
+    color: #b6b6b6;
+    margin-top: 15px;
+}
 .botao_entrar input{
     cursor: pointer;
     width: 120px;

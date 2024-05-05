@@ -1,87 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de Multas de Trânsito</title>
+    <link rel="stylesheet" href="CSS/style.css" />
+    <link rel="stylesheet" href="CSS/index.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculadora de Multas de Trânsito</title>
-  <link rel="stylesheet" href="CSS/style.css">
-  <link rel="stylesheet" href="CSS/index.css">
-</head>
-
-<body>
-  <header>
-    <h1>Calculadora de Multas de Trânsito</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="about.html">Sobre</a></li>
-        <li><a href="contact.html">Contato</a></li>
-        <li><a href="infos.html">Infos</a></li>
-      </ul>
-    </nav>
-  </header>
-  <main>
-    <section class="opcoes">
+  <body>
+    <header>
+      <h1>Calculadora de Multas de Trânsito</h1>
       <nav>
         <ul>
-          <li><a href="fine_history.html"><button type="button">Histórico de Multas</button></a></li>
-          <li><a href="pay_fine.html"><button type="button">Pagar Multa</button></a></li>
-          <li><a href="appeal_fine.html"><button type="button">Recorrer Multa</button></a></li>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="about.html">Sobre</a></li>
+          <li><a href="contact.html">Contato</a></li>
+          <li><a href="infos.html">Infos</a></li>
         </ul>
       </nav>
-    </section>
-    <section class="container">
-      <h2>Calcule as Consequências da Sua Multa</h2>
-      <form action="#">
-        <label for="carteira" class="label-carteira">Categoria da Carteira:</label>
-        <select name="carteira" id="carteira" class="select-carteira">
-          <option value="A">Categoria A</option>
-          <option value="B">Categoria B</option>
-          <option value="C">Categoria C</option>
-          <option value="D">Categoria D</option>
-          <option value="E">Categoria E</option>
-        </select>
+    </header>
+    <main>
+      <section class="opcoes">
+        <nav>
+          <ul>
+            <li>
+              <a href="fine_history.html"
+                ><button type="button">Histórico de Multas</button></a
+              >
+            </li>
+            <li>
+              <a href="pay_fine.html"
+                ><button type="button">Pagar Multa</button></a
+              >
+            </li>
+            <li>
+              <a href="appeal_fine.html"
+                ><button type="button">Recorrer Multa</button></a
+              >
+            </li>
+          </ul>
+        </nav>
+      </section>
+      <section class="container">
+        <h2 style="text-align: center">
+          Calcule as Consequências da Sua Multa
+        </h2>
+        <form action="#">
+          <label for="carteira" class="label-carteira"
+            >Categoria da Carteira:</label
+          >
+          <select name="carteira" id="carteira" class="select-carteira">
+            <option value="A">Categoria A</option>
+            <option value="B">Categoria B</option>
+            <option value="C">Categoria C</option>
+            <option value="D">Categoria D</option>
+            <option value="E">Categoria E</option>
+          </select>
 
-        <label for="infracao_cometida" class="label-infracao">Infração Cometida:</label>
-        <select name="infracao_cometida" id="infracao_cometida" class="select-infracao" onchange="Display()">
-          <option value="velocida_excesso">Excesso de Velocidade</option>
-          <option value="sinal_vermelho">Ultrapassagem Sinal Vermelho</option>
-          <option value="estacionar_proibido">Estacionar em local proibido</option>
-          <option value="falta_cinto">Falta de uso do cinto de segurança</option>
-          <option value="Outro">Outro</option>
-        </select>
+          <label for="infracao_cometida" class="label-infracao"
+            >Infração Cometida:</label
+          >
+          <select
+            name="infracao_cometida"
+            id="infracao_cometida"
+            class="select-infracao"
+            onchange="Display()"
+          >
+            <option value="velocida_excesso">Excesso de Velocidade</option>
+            <option value="sinal_vermelho">Ultrapassagem Sinal Vermelho</option>
+            <option value="estacionar_proibido">
+              Estacionar em local proibido
+            </option>
+            <option value="falta_cinto">
+              Falta de uso do cinto de segurança
+            </option>
+            <option value="Outro">Outro</option>
+          </select>
 
-        <section class="texto_outro" id="texto_outro">
-          <label for="text_outro">Outro:</label>
-          <textarea name="text_outro" id="text_outro" rows="2" cols="4" min="" max=""
-            placeholder="Descreva a(s) infração(ões) cometida(s)"></textarea>
-        </section>
+          <section class="texto_outro" id="texto_outro">
+            <label for="text_outro">Outro:</label>
+            <textarea
+              name="text_outro"
+              id="text_outro"
+              rows="2"
+              cols="4"
+              min=""
+              max=""
+              placeholder="Descreva a(s) infração(ões) cometida(s)"
+            ></textarea>
+          </section>
 
-        <label for="date_infracao">Data da Infração:</label>
-        <input class="data_infracao" type="date" name="data_infracao" id="data_infracao" min="2020-01-01" max="2024-12-31" value="">
+          <label for="date_infracao">Data da Infração:</label>
+          <input
+            class="data_infracao"
+            type="date"
+            name="data_infracao"
+            id="data_infracao"
+            min="2020-01-01"
+            max="2024-12-31"
+            value=""
+          />
 
-        <button type="submit" class="calc_button">Calcular</button>
-      </form>
-    </section>
-  </main>
-  <footer>
-    <p>&copy; 2024 Calculadora de Multas de Trânsito. Todos os direitos reservados.</p>
-  </footer>
-</body>
+          <button type="submit" class="calc_button">Calcular</button>
+        </form>
+      </section>
+    </main>
+    <footer>
+      <p>
+        &copy; 2024 Calculadora de Multas de Trânsito. Todos os direitos
+        reservados.
+      </p>
+    </footer>
+  </body>
 
-<script>
-  function Display() {
-    var option = document.getElementById("infracao_cometida").value;
-    var texto = document.getElementById("texto_outro");
+  <script>
+    function Display() {
+      var option = document.getElementById("infracao_cometida").value;
+      var texto = document.getElementById("texto_outro");
 
-    if (option != "Outro") {
-      texto.style.display = "none";
+      if (option != "Outro") {
+        texto.style.display = "none";
+      }
+      if (option == "Outro") {
+        texto.style.display = "block";
+      }
     }
-    if (option == "Outro") {
-      texto.style.display = "block";
-    }
-  }
-</script>
-
+  </script>
 </html>

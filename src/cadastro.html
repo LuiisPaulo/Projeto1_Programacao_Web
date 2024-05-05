@@ -18,31 +18,32 @@
         <main>
             <section class="cadastro" id="cadastro">
                 <section class="caixa_cadastro">
-                    <img src="IMG/" alt="">
+                    <!-- Logo Tipo Provisotiro -->
+                    <img src="IMG/" alt="Logo_Previa">
                     <h1>Cadastro</h1>
                     <section class="name">
-                        <input type="text" placeholder="Nome">
+                        <input type="text" placeholder="Nome" minlength="4" maxlength="30" required>
                     </section>
 
                     <section class="cpf">
-                        <input type="text" placeholder="CPF">
+                        <input type="text" id="cpf_user" name="cpf" placeholder="CPF" maxlength="14" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"  required>
                     </section>
-                    
+
                     <section class="email">
                         <input type="email" placeholder="E-mail">
                     </section>
-                    
+                   <form> 
                     <section class="password">
-                        <input type="password" placeholder="Senha">
+                        <input type="password" placeholder="Senha" minlength="8" maxlength="20" required>
                     </section>
                     
                     <section class="password_confirm">
-                        <input type="password" placeholder="Confirme sua Senha">
+                        <input type="password" placeholder="Confirme sua Senha" minglenth="8" maxlength="20" required>
                     </section>
-                
+                  </form>
                     <section class="botao_entrar">
                     <p>Já tem uma conta? <a href="login.html">Entre aqui.</a></p>
-                    <input type="submit" value="Entrar">
+                    <a href="index.html"><input type="submit" value="Entrar"></a>
                     </section>
             </section>
         </main>

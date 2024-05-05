@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculadora de Multas de Trânsito</title>
     <link rel="stylesheet" href="CSS/style.css" />
+    <link rel="stylesheet" href="CSS/historico.css" />
   </head>
   <body>
     <header>
@@ -18,7 +19,81 @@
         </ul>
       </nav>
     </header>
-    <main></main>
+    <main>
+      <section class="opcoes">
+        <nav>
+          <ul>
+            <li>
+              <a href="fine_history.html"
+                ><button type="button">Histórico de Multas</button></a
+              >
+            </li>
+            <li>
+              <a href="pay_fine.html"
+                ><button type="button">Pagar Multa</button></a
+              >
+            </li>
+            <li>
+              <a href="appeal_fine.html"
+                ><button type="button">Recorrer Multa</button></a
+              >
+            </li>
+          </ul>
+        </nav>
+      </section>
+      <section class="consultar_historico">
+        <h1 style="text-align: center">Consultar Historico de Infrações</h1>
+        <h4>Como podemos consultar o histórico?</h4>
+        <p>
+          Nosso site permite consultar seu histórico de infrações, basta
+          preencher as informações abaixo para realizar a conferencia.
+        </p>
+        <h3>Consultar Histórico de Infrações</h3>
+        <form action="#">
+          <label for="cnh_user">Insira o número da sua CNH: *</label>
+          <br />
+          <input
+            type="text"
+            name="cnh_user"
+            value=""
+            id="cnh_user"
+            maxlength="11"
+            placeholder="Preencha com sua CNH"
+            required
+          />
+          <br />
+          <label for="select_infracao" class="select_infracao"
+            >Selecione a infração desejada:</label
+          >
+          <br />
+          <select
+            class="select-infracao"
+            name="select-infracao"
+            id="select-infracao"
+          >
+            <option value="todas_infracoes">Todas as Infrações</option>
+            <option value="velocida_excesso">Excesso de Velocidade</option>
+            <option value="sinal_vermelho">Ultrapassagem Sinal Vermelho</option>
+            <option value="estacionar_proibido">
+              Estacionar em local proibido
+            </option>
+            <option value="falta_cinto">
+              Falta de uso do cinto de segurança
+            </option>
+          </select>
+
+          <br />
+          <section class="historico_botao">
+            <button type="submit" class="botao_historico">Pesquisar</button>
+          </section>
+        </form>
+
+        <section class="resultado_pesquisa" id="resultado_pesquisa">
+          <p>Resultado histórico de infrações:</p>
+          <!-- Script (JS) para calcular a pesquisa realizada pelo usuario, após pesquisar -->
+        </section>
+      </section>
+    </main>
     <footer>
       <p>
         &copy; 2024 Calculadora de Multas de Trânsito. Todos os direitos

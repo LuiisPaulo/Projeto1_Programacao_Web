@@ -3,18 +3,19 @@
 // variavel para criação de cadastro, array list
 let register = [];
 
+let registerConvert = JSON.stringify(register);
+
 // Criação das constantes 
 document.addEventListener('DOMContentLoaded', function (){
     const addEvent = document.getElementById('add_user');
     const clear = document.getElementById('clear_button');
-    const clearAll = document.getElementById('clear_all_button');
     const delete_user = document.getElementById('delete_user');
     const delete_All = document.getElementById('delete_all');
     const search = document.getElementById('search');
 });
 
  
- document.getElementById('button_submit');addEventListener('add_user', date);
+ document.getElementById('button_submit').addEventListener();
 
 
  addUser.addEventListener("submit", function(event){
@@ -38,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function (){
         date: curruntDate // data atual
     };
 
-    createRegister.push(register);
+    register.push(createRegister);
 
     render();
 
@@ -76,13 +77,6 @@ function generateId(){
 // função para pegar a data atual
 function getCurrentDate(){
     const curruntDate = new Date();
-    eventDate.preventDefault();
-
-    // variavel
-    var dateFormat = dateSubmit.toLocaleString();
-    
-    localStorage.setItem('dateSubmit', dateSubmit.toString());
-     
-   // return 
+    return curruntDate.toLocalString();
 }
 

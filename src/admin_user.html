@@ -1,18 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Admin - Projeto 2</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./CSS/admin_user.css">
 </head>
 <body>
-    <header>
-        <h1>teste</h1>
-    </header>
-    <main>
-        
-    </main>
-    <footer></footer>
-    <script src="./script/admin_users.js"></script>
+    <div class="titulo"><h1>Página Admin</h1></div>
+    <form class="container">
+        <label for="username">Nome do Usuário:</label>
+        <input type="text" id="username" required>
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" required>
+        <button type="submit">Cadastrar</button>
+        <button type="button" id="clearForm">Limpar Formulário</button>
+    </form>
+    <ul id="userList"></ul>
+    <button id="clearList">Excluir Todos os Itens</button>
+    <input type="text" id="search" placeholder="Pesquisar...">
 </body>
+<script src="./script/admin_users.js"></script>
 </html>

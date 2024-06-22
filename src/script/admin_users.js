@@ -1,88 +1,69 @@
-// Script para admin users
+document.addEventListener('DOMContentLoaded', () => {
+    const userForm = document.getElementById('userForm');
+    const userList = document.getElementById('userList');
+    const clearFormBtn = document.getElementById('clearForm');
+    const clearListBtn = document.getElementById('clearList');
+    const searchInput = document.getElementById('search');
 
-// variavel para criação de cadastro, array list
-let register = [];
+    function loadUsers() {
+        userList.innerHTML = '';
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        users.forEach(user => {
+            const li = document.createElement('li');
+            li.innerHTML = `${user.date} - ${user.name} (${user.email}) <button class="delete">Excluir</button>`;
+            userList.appendChild(li);
+        });
+    }
 
-// Criação das constantes 
-document.addEventListener('DOMContentLoaded', function (){
-    const addEvent = document.getElementById('add_user');
-    const clear = document.getElementById('clear_button');
-    const clearAll = document.getElementById('clear_all_button');
-    const delete_user = document.getElementById('delete_user');
-    const delete_All = document.getElementById('delete_all');
-    const search = document.getElementById('search');
-});
+    function saveUser(user) {
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        users.push(user);
+        localStorage.setItem('users', JSON.stringify(users));
+        loadUsers();
+    }
 
- 
- document.getElementById('button_submit');addEventListener('add_user', date);
+    function clearForm() {
+        document.getElementById('username').value = '';
+        document.getElementById('email').value = '';
+    }
 
+    function clearList() {
+        localStorage.removeItem('users');
+        loadUsers();
+    }
 
- addUser.addEventListener("submit", function(event){
-    
-    event.preventDefault();
-    // gera id
-    const id = generateId();
-    
-    // gera data atual
-    const curruntDate = getCurrentDate();
-
-    // Variavel user infos
-    let name = document.getElementById('name').value;
-    let email = document.getElementById('email').value;
-    
-
-    const createRegister = {
-        id: id,
-        name: name,
-        email: email,
-        date: curruntDate // data atual
-    };
-
-    createRegister.push(register);
-
-    render();
-
-    addUser.reset();
-});
-
-// função para "limpar" storage
-function render(event){
-    event.preventDefault();
-
-    const registerCont = document.getElementById('register_Cont');
-
-    registerCont.innerHTML = '';
-
-    register.forEach(function(register){
-        const createRegister = document.createElement('section');
-        createRegister.classList.add('register-user');
-
-        createRegister.innerHTML = `
-        <strong>ID: <strong> ${register.id},
-        <strong>Name: <strong> ${register.name},
-        <strong>E-mail: <strong> ${register.email},
-        <strong>Data: <strong> ${register.curruntDate},
-        
-        `;
-        registerCont.appendChild(createRegister);
+    userForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
+        const date = new Date().toLocaleString();
+        saveUser({ name: username, email: email, date: date });
+        clearForm();
     });
-}
 
-// Função para gerar id aleatorio 
-function generateId(){
-    return Math.floor(Math.random() * 10000) + 1;
-}
+    clearFormBtn.addEventListener('click', clearForm);
 
-// função para pegar a data atual
-function getCurrentDate(){
-    const curruntDate = new Date();
-    eventDate.preventDefault();
+    clearListBtn.addEventListener('click', clearList);
 
-    // variavel
-    var dateFormat = dateSubmit.toLocaleString();
-    
-    localStorage.setItem('dateSubmit', dateSubmit.toString());
-     
-   // return 
-}
+    userList.addEventListener('click', (e) => {
+        if (e.target.classList.contains('delete')) {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const newUserList = users.filter(user => user.email !== e.target.parentElement.textContent.match(/\(([^)]+)\)/)[1]);
+            localStorage.setItem('users', JSON.stringify(newUserList));
+            loadUsers();
+        }
+    });
 
+    searchInput.addEventListener('input', (e) => {
+        const searchValue = e.target.value.toLowerCase();
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        userList.innerHTML = '';
+        users.filter(user => user.name.toLowerCase().includes(searchValue) || user.email.toLowerCase().includes(searchValue)).forEach(user => {
+            const li = document.createElement('li');
+            li.innerHTML = `${user.date} - ${user.name} (${user.email}) <button class="delete">Excluir</button>`;
+            userList.appendChild(li);
+        });
+    });
+
+    loadUsers();
+});

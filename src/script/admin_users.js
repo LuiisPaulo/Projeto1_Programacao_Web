@@ -7,18 +7,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function loadUsers() {
         userList.innerHTML = '';
-        const users = JSON.parse(localStorage.getItem('users')) || [];
-        users.forEach(user => {
+        const usernames = JSON.parse(localStorage.getItem('usernames')) || [];
+        const emails = JSON.parse(localStorage.getItem('emails')) || [];
+        const dates = JSON.parse(localStorage.getItem('dates')) || [];
+        for (let i = 0; i < usernames.length; i++) {
             const li = document.createElement('li');
-            li.innerHTML = `${user.date} - ${user.name} (${user.email}) <button class="delete">Excluir</button>`;
+            li.innerHTML = `${dates[i]} - ${usernames[i]} (${emails[i]}) <button class="delete">Excluir</button>`;
             userList.appendChild(li);
-        });
+        }
     }
 
     function saveUser(user) {
-        const users = JSON.parse(localStorage.getItem('users')) || [];
-        users.push(user);
-        localStorage.setItem('users', JSON.stringify(users));
+        const usernames = JSON.parse(localStorage.getItem('usernames')) || [];
+        const emails = JSON.parse(localStorage.getItem('emails')) || [];
+        const dates = JSON.parse(localStorage.getItem('dates')) || [];
+        usernames.push(user.name);
+        emails.push(user.email);
+        dates.push(user.date);
+        localStorage.setItem('usernames', JSON.stringify(usernames));
+        localStorage.setItem('emails', JSON.stringify(emails));
+        localStorage.setItem('dates', JSON.stringify(dates));
         loadUsers();
     }
 
@@ -28,8 +36,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function clearList() {
-        localStorage.removeItem('users');
-        loadUsers();
+        if (confirm("Você tem certeza que deseja excluir todos os itens?")) {
+            localStorage.removeItem('usernames');
+            localStorage.removeItem('emails');
+            localStorage.removeItem('dates');
+            loadUsers();
+        }
     }
 
     userForm.addEventListener('submit', (e) => {
@@ -47,22 +59,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
     userList.addEventListener('click', (e) => {
         if (e.target.classList.contains('delete')) {
-            const users = JSON.parse(localStorage.getItem('users')) || [];
-            const newUserList = users.filter(user => user.email !== e.target.parentElement.textContent.match(/\(([^)]+)\)/)[1]);
-            localStorage.setItem('users', JSON.stringify(newUserList));
-            loadUsers();
+            if (confirm("Você tem certeza que deseja excluir este item?")) {
+                const emailToDelete = e.target.parentElement.textContent.match(/\(([^)]+)\)/)[1];
+                const usernames = JSON.parse(localStorage.getItem('usernames')) || [];
+                const emails = JSON.parse(localStorage.getItem('emails')) || [];
+                const dates = JSON.parse(localStorage.getItem('dates')) || [];
+                const index = emails.indexOf(emailToDelete);
+                if (index > -1) {
+                    usernames.splice(index, 1);
+                    emails.splice(index, 1);
+                    dates.splice(index, 1);
+                    localStorage.setItem('usernames', JSON.stringify(usernames));
+                    localStorage.setItem('emails', JSON.stringify(emails));
+                    localStorage.setItem('dates', JSON.stringify(dates));
+                    loadUsers();
+                }
+            }
         }
     });
 
     searchInput.addEventListener('input', (e) => {
         const searchValue = e.target.value.toLowerCase();
-        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const usernames = JSON.parse(localStorage.getItem('usernames')) || [];
+        const emails = JSON.parse(localStorage.getItem('emails')) || [];
+        const dates = JSON.parse(localStorage.getItem('dates')) || [];
         userList.innerHTML = '';
-        users.filter(user => user.name.toLowerCase().includes(searchValue) || user.email.toLowerCase().includes(searchValue)).forEach(user => {
-            const li = document.createElement('li');
-            li.innerHTML = `${user.date} - ${user.name} (${user.email}) <button class="delete">Excluir</button>`;
-            userList.appendChild(li);
-        });
+        for (let i = 0; i < usernames.length; i++) {
+            if (usernames[i].toLowerCase().includes(searchValue) || emails[i].toLowerCase().includes(searchValue)) {
+                const li = document.createElement('li');
+                li.innerHTML = `${dates[i]} - ${usernames[i]} (${emails[i]}) <button class="delete">Excluir</button>`;
+                userList.appendChild(li);
+            }
+        }
     });
 
     loadUsers();

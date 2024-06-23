@@ -1,82 +1,76 @@
-// Script para admin users
+var users = [];
+function generateID(){
+    return Math.floor(Math.radom + 1);
+}
 
-// variavel para criação de cadastro, array list
-let register = [];
+function generateDate(){
+    let date = new Date();
+    let day = String(date.getDate()).padStar(2, '0');
+    let month = String(date.getMonth() + 1).padStar(2, '0');
+    let year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+}
 
-let registerConvert = JSON.stringify(register);
-
-// Criação das constantes 
-document.addEventListener('DOMContentLoaded', function (){
-    const addEvent = document.getElementById('add_user');
-    const clear = document.getElementById('clear_button');
-    const delete_user = document.getElementById('delete_user');
-    const delete_All = document.getElementById('delete_all');
-    const search = document.getElementById('search');
-});
-
- 
- document.getElementById('button_submit').addEventListener();
-
-
- addUser.addEventListener("submit", function(event){
-    
-    event.preventDefault();
-    // gera id
-    const id = generateId();
-    
-    // gera data atual
-    const curruntDate = getCurrentDate();
-
-    // Variavel user infos
-    let name = document.getElementById('name').value;
-    let email = document.getElementById('email').value;
-    
-
-    const createRegister = {
-        id: id,
+function addUsers(name, email){
+    let newUser = {
+        id: generateID(),
         name: name,
         email: email,
-        date: curruntDate // data atual
+        date: generateDate()
     };
 
-    register.push(createRegister);
+    listUser.push(newUser);
+    localStorage.setItem('listUser', JSON.stringify(listUser));
+    renderUsers();
+    clearForm();
+}
 
-    render();
+function deleteUser(idUser){
+    var updateUsers = listUser.filter(function(user){
+        return user.id !== idUser;
+    });
 
-    addUser.reset();
-});
+    if(updateUsers.length < listUser.length){
+        listUser = updateUsers;
+        localStorage.setItem('listUser', JSON.stringify(listUser));
+        renderUsers();
+    }else{
+        alert ('Usuario não encontrado');
+    }
+}
 
-// função para "limpar" storage
-function render(event){
-    event.preventDefault();
+function getUser(){
+    var get_user = JSON.parse(localStorage.getItem('listUser'));
+    listUser = get_user || [];
+}
 
-    const registerCont = document.getElementById('register_Cont');
+function renderUsers(){
+    let userListElement = document.getElementById('listUser');
+    userListElement.innerHTML = '';
 
-    registerCont.innerHTML = '';
-
-    register.forEach(function(register){
-        const createRegister = document.createElement('section');
-        createRegister.classList.add('register-user');
-
-        createRegister.innerHTML = `
-        <strong>ID: <strong> ${register.id},
-        <strong>Name: <strong> ${register.name},
-        <strong>E-mail: <strong> ${register.email},
-        <strong>Data: <strong> ${register.curruntDate},
-        
-        `;
-        registerCont.appendChild(createRegister);
+    listUser.forEach(function(user){
+        let listElements = document.createElement('li');
+        listElements.innerHTML = '<span class="user-name">' + user.name + '</span> (Email: ' + user.email + ') <button class="delete-button" onclick="deleteUser(' + user.id + ')">Excluir</button>';
+        listElements.appendChild(listElements);
     });
 }
 
-// Função para gerar id aleatorio 
-function generateId(){
-    return Math.floor(Math.random() * 10000) + 1;
+getUser();
+renderUsers();
+
+document.getElementById('addUser').addEventListener('submit', function(event){
+    event.preventDefault();
+    let inputName = document.getElementById('inputName');
+    let inputEmail = document.getElementById('inputEmail');
+    addUsers(inputName.value, inputEmail.value);;
+    inputName.value = '';
+    inputEmail.value = '';
+});
+
+function clearForm(){
+    document.getElementById('inputName').value = '';
+    document.getElementById('inputEmail').value = '';
 }
 
-// função para pegar a data atual
-function getCurrentDate(){
-    const curruntDate = new Date();
-    return curruntDate.toLocalString();
-}
+
 

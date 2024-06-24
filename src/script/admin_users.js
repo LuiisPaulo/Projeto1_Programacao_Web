@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('search');
 
     function loadUsers() {
+        console.log('Loading users...');
         userList.innerHTML = '';
         const usernames = JSON.parse(localStorage.getItem('usernames')) || [];
         const emails = JSON.parse(localStorage.getItem('emails')) || [];
@@ -18,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function saveUser(user) {
+        console.log('Saving user:', user);
         const usernames = JSON.parse(localStorage.getItem('usernames')) || [];
         const emails = JSON.parse(localStorage.getItem('emails')) || [];
         const dates = JSON.parse(localStorage.getItem('dates')) || [];
@@ -31,11 +33,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function clearForm() {
+        console.log('Clearing form...');
         document.getElementById('username').value = '';
         document.getElementById('email').value = '';
     }
 
     function clearList() {
+        console.log('Clearing list...');
         if (confirm("Você tem certeza que deseja excluir todos os itens?")) {
             localStorage.removeItem('usernames');
             localStorage.removeItem('emails');
@@ -49,8 +53,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = document.getElementById('username').value;
         const email = document.getElementById('email').value;
         const date = new Date().toLocaleString();
-        saveUser({ name: username, email: email, date: date });
-        clearForm();
+        if (username && email) {
+            saveUser({ name: username, email: email, date: date });
+            clearForm();
+        } else {
+            alert('Por favor, preencha todos os campos.');
+        }
     });
 
     clearFormBtn.addEventListener('click', clearForm);
@@ -61,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.classList.contains('delete')) {
             if (confirm("Você tem certeza que deseja excluir este item?")) {
                 const emailToDelete = e.target.parentElement.textContent.match(/\(([^)]+)\)/)[1];
+                console.log('Deleting user with email:', emailToDelete);
                 const usernames = JSON.parse(localStorage.getItem('usernames')) || [];
                 const emails = JSON.parse(localStorage.getItem('emails')) || [];
                 const dates = JSON.parse(localStorage.getItem('dates')) || [];

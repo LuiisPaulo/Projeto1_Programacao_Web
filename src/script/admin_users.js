@@ -1,76 +1,81 @@
-var users = [];
-function generateID(){
-    return Math.floor(Math.radom + 1);
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const userForm = document.getElementById('userForm');
+    const userList = document.getElementById('userList');
+    const clearFormBtn = document.getElementById('clearForm');
+    const clearListBtn = document.getElementById('clearList');
+    const searchInput = document.getElementById('search');
 
-function generateDate(){
-    let date = new Date();
-    let day = String(date.getDate()).padStar(2, '0');
-    let month = String(date.getMonth() + 1).padStar(2, '0');
-    let year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-}
-
-function addUsers(name, email){
-    let newUser = {
-        id: generateID(),
-        name: name,
-        email: email,
-        date: generateDate()
-    };
-
-    listUser.push(newUser);
-    localStorage.setItem('listUser', JSON.stringify(listUser));
-    renderUsers();
-    clearForm();
-}
-
-function deleteUser(idUser){
-    var updateUsers = listUser.filter(function(user){
-        return user.id !== idUser;
-    });
-
-    if(updateUsers.length < listUser.length){
-        listUser = updateUsers;
-        localStorage.setItem('listUser', JSON.stringify(listUser));
-        renderUsers();
-    }else{
-        alert ('Usuario não encontrado');
+    function loadUsers() {
+        userList.innerHTML = '';
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        users.forEach((user, index) => {
+            const li = document.createElement('li');
+            const userId = index + 1; // Adiciona 1 ao index para começar com ID 1
+            li.innerHTML = `ID: ${userId} - ${user.date} - ${user.name} (${user.email}) <button class="delete" data-id="${userId}">Excluir</button>`;
+            userList.appendChild(li);
+        });
     }
-}
 
-function getUser(){
-    var get_user = JSON.parse(localStorage.getItem('listUser'));
-    listUser = get_user || [];
-}
+    function saveUser(user) {
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const userId = users.length + 1; // Gera o próximo ID numerando de 1 em 1
+        user.id = userId;
+        users.push(user);
+        localStorage.setItem('users', JSON.stringify(users));
+        loadUsers();
+    }
 
-function renderUsers(){
-    let userListElement = document.getElementById('listUser');
-    userListElement.innerHTML = '';
+    function clearForm() {
+        document.getElementById('username').value = '';
+        document.getElementById('email').value = '';
+    }
 
-    listUser.forEach(function(user){
-        let listElements = document.createElement('li');
-        listElements.innerHTML = '<span class="user-name">' + user.name + '</span> (Email: ' + user.email + ') <button class="delete-button" onclick="deleteUser(' + user.id + ')">Excluir</button>';
-        listElements.appendChild(listElements);
+    function clearList() {
+        if (confirm("Você tem certeza que deseja excluir todos os itens?")) {
+            localStorage.removeItem('users');
+            loadUsers();
+        }
+    }
+
+    userForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
+        const date = new Date().toLocaleString();
+        const user = { name: username, email: email, date: date };
+        saveUser(user);
+        clearForm();
     });
-}
 
-getUser();
-renderUsers();
+    clearFormBtn.addEventListener('click', clearForm);
 
-document.getElementById('addUser').addEventListener('submit', function(event){
-    event.preventDefault();
-    let inputName = document.getElementById('inputName');
-    let inputEmail = document.getElementById('inputEmail');
-    addUsers(inputName.value, inputEmail.value);;
-    inputName.value = '';
-    inputEmail.value = '';
+    clearListBtn.addEventListener('click', clearList);
+
+    userList.addEventListener('click', (e) => {
+        if (e.target.classList.contains('delete')) {
+            const userId = parseInt(e.target.getAttribute('data-id'));
+            if (confirm(`Você tem certeza que deseja excluir o usuário ID: ${userId}?`)) {
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                const filteredUsers = users.filter(user => user.id !== userId);
+                localStorage.setItem('users', JSON.stringify(filteredUsers));
+                loadUsers();
+            }
+        }
+    });
+
+    searchInput.addEventListener('input', (e) => {
+        const searchValue = e.target.value.toLowerCase();
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const filteredUsers = users.filter(user => user.name.toLowerCase().includes(searchValue) || user.email.toLowerCase().includes(searchValue));
+        userList.innerHTML = '';
+        filteredUsers.forEach((user, index) => {
+            const li = document.createElement('li');
+            const userId = index + 1; // Adiciona 1 ao index para começar com ID 1
+            li.innerHTML = `ID: ${userId} - ${user.date} - ${user.name} (${user.email}) <button class="delete" data-id="${userId}">Excluir</button>`;
+            userList.appendChild(li);
+        });
+    });
+
+    loadUsers();
 });
-
-function clearForm(){
-    document.getElementById('inputName').value = '';
-    document.getElementById('inputEmail').value = '';
-}
-
-
 

@@ -7,7 +7,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-form label{
+form label {
     display: block;
     margin-top: 25px;
     margin-bottom: 10px;
@@ -16,7 +16,7 @@ form label{
     border-radius: 5px;
 }
 
-#data_infracao{
+#data_infracao {
     display: block;
     margin-bottom: 10px;
     padding: 10px;
@@ -82,7 +82,7 @@ form button.calc_button:hover {
     display: none;
 }
 
-.button-adm{
+.button-adm {
     color: #fff;
     background-color: #000000;
     border-radius: 5px;
@@ -91,10 +91,10 @@ form button.calc_button:hover {
     box-shadow: 1px 4px 10px rgb(0, 0, 0, 0.2);
 }
 
-.button-adm:hover{
+.button-adm:hover {
     opacity: 0.8;
 }
 
-.button-adm:active{
+.button-adm:active {
     opacity: 0.6;
 }

@@ -5,11 +5,13 @@ body {
     margin: 0;
     padding: 20px;
 }
-.titulo{
+
+.titulo {
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 .container {
     display: flex;
     flex-direction: column;
@@ -36,20 +38,24 @@ nav ul {
     list-style: none;
     padding: 0;
 }
+
 nav ul li {
     display: inline;
     margin-right: 10px;
 }
+
 ul {
     list-style: none;
     padding: 0;
 }
+
 ul li {
     background-color: #fff;
     margin-bottom: 10px;
     padding: 10px;
     border: 1px solid #ccc;
 }
+
 ul li button.delete {
     margin-left: 10px;
     background-color: red;

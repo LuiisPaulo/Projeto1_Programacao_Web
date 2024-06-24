@@ -1,0 +1,92 @@
+/* Estilos gerais */
+.container,
+.listUsers {
+    max-width: 70%;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.titulo,
+.users_cadastrados {
+    text-align: center;
+}
+
+form label,
+form input,
+form select,
+form button,
+form textarea {
+    display: block;
+    width: calc(100% - 20px);
+    margin: 10px auto;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form button.calc_button {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border: none;
+}
+
+form button.calc_button:hover {
+    background-color: #0056b3;
+}
+
+.button-adm {
+    color: #fff;
+    background-color: #000000;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.button-adm:hover {
+    opacity: 0.8;
+}
+
+.button-adm:active {
+    opacity: 0.6;
+}
+
+/* Estilos para a lista de usuários */
+#userList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#userList li {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#userList li:nth-child(even) {
+    background-color: #f1f1f1;
+}
+
+#userList li .delete {
+    background-color: #ff4c4c;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#userList li .delete:hover {
+    background-color: #ff1c1c;
+}

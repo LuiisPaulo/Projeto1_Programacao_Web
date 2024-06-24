@@ -7,21 +7,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function loadUsers() {
         userList.innerHTML = '';
-        const users = JSON.parse(localStorage.getItem('users')) || [];
-        users.forEach((user, index) => {
+        const names = JSON.parse(localStorage.getItem('names')) || [];
+        const emails = JSON.parse(localStorage.getItem('emails')) || [];
+        names.forEach((name, index) => {
             const li = document.createElement('li');
+            const email = emails[index];
             const userId = index + 1; // Adiciona 1 ao index para começar com ID 1
-            li.innerHTML = `ID: ${userId} - ${user.date} - ${user.name} (${user.email}) <button class="delete" data-id="${userId}">Excluir</button>`;
+            li.innerHTML = `ID: ${userId} - ${name} (${email}) <button class="delete" data-id="${userId}">Excluir</button>`;
             userList.appendChild(li);
         });
     }
 
-    function saveUser(user) {
-        const users = JSON.parse(localStorage.getItem('users')) || [];
-        const userId = users.length + 1; // Gera o próximo ID numerando de 1 em 1
-        user.id = userId;
-        users.push(user);
-        localStorage.setItem('users', JSON.stringify(users));
+    function saveUser(name, email) {
+        const names = JSON.parse(localStorage.getItem('names')) || [];
+        const emails = JSON.parse(localStorage.getItem('emails')) || [];
+        names.push(name);
+        emails.push(email);
+        localStorage.setItem('names', JSON.stringify(names));
+        localStorage.setItem('emails', JSON.stringify(emails));
         loadUsers();
     }
 
@@ -32,7 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function clearList() {
         if (confirm("Você tem certeza que deseja excluir todos os itens?")) {
-            localStorage.removeItem('users');
+            localStorage.removeItem('names');
+            localStorage.removeItem('emails');
             loadUsers();
         }
     }
@@ -41,9 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const username = document.getElementById('username').value;
         const email = document.getElementById('email').value;
-        const date = new Date().toLocaleString();
-        const user = { name: username, email: email, date: date };
-        saveUser(user);
+        saveUser(username, email);
         clearForm();
     });
 
@@ -55,9 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.classList.contains('delete')) {
             const userId = parseInt(e.target.getAttribute('data-id'));
             if (confirm(`Você tem certeza que deseja excluir o usuário ID: ${userId}?`)) {
-                const users = JSON.parse(localStorage.getItem('users')) || [];
-                const filteredUsers = users.filter(user => user.id !== userId);
-                localStorage.setItem('users', JSON.stringify(filteredUsers));
+                const names = JSON.parse(localStorage.getItem('names')) || [];
+                const emails = JSON.parse(localStorage.getItem('emails')) || [];
+                const filteredNames = names.filter((name, index) => index + 1 !== userId);
+                const filteredEmails = emails.filter((email, index) => index + 1 !== userId);
+                localStorage.setItem('names', JSON.stringify(filteredNames));
+                localStorage.setItem('emails', JSON.stringify(filteredEmails));
                 loadUsers();
             }
         }
@@ -65,17 +70,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     searchInput.addEventListener('input', (e) => {
         const searchValue = e.target.value.toLowerCase();
-        const users = JSON.parse(localStorage.getItem('users')) || [];
-        const filteredUsers = users.filter(user => user.name.toLowerCase().includes(searchValue) || user.email.toLowerCase().includes(searchValue));
+        const names = JSON.parse(localStorage.getItem('names')) || [];
+        const emails = JSON.parse(localStorage.getItem('emails')) || [];
+        const filteredNames = names.filter(name => name.toLowerCase().includes(searchValue));
+        const filteredEmails = emails.filter((email, index) => names[index].toLowerCase().includes(searchValue));
         userList.innerHTML = '';
-        filteredUsers.forEach((user, index) => {
+        filteredNames.forEach((name, index) => {
             const li = document.createElement('li');
-            const userId = index + 1; // Adiciona 1 ao index para começar com ID 1
-            li.innerHTML = `ID: ${userId} - ${user.date} - ${user.name} (${user.email}) <button class="delete" data-id="${userId}">Excluir</button>`;
+            const email = filteredEmails[index];
+            const userId = names.indexOf(name) + 1; // Obtém o ID do usuário a partir do índice do nome
+            li.innerHTML = `ID: ${userId} - ${name} (${email}) <button class="delete" data-id="${userId}">Excluir</button>`;
             userList.appendChild(li);
         });
     });
 
     loadUsers();
 });
+
 

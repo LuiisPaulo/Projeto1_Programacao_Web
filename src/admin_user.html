@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Projeto 2</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./CSS/style.css">
     <link rel="stylesheet" href="./CSS/admin_user.css">
 </head>
 <body>
     <header>
-        <h1>Calculadora de Multas de Trânsito</h1>
+        <h1>Cadastro Usuário</h1>
         <nav>
           <ul>
             <li><a href="index.html">Início</a></li>
@@ -21,6 +21,7 @@
         </nav>
       </header>
     <div class="titulo"><h1>Página Admin</h1></div>
+    <input type="text" id="search" placeholder="Pesquisar...">
     <form id="userForm" class="container">
         <label for="username">Nome do Usuário:</label>
         <input type="text" id="username" required>
@@ -31,7 +32,6 @@
     </form>
     <ul id="userList"></ul>
     <button id="clearList">Excluir Todos os Itens</button>
-    <input type="text" id="search" placeholder="Pesquisar...">
 </body>
 <script src="./script/admin_users.js"></script>
 </html>

@@ -81,20 +81,3 @@ form button.calc_button:hover {
 #texto_outro {
     display: none;
 }
-
-.button-adm{
-    color: #fff;
-    background-color: #000000;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    box-shadow: 1px 4px 10px rgb(0, 0, 0, 0.2);
-}
-
-.button-adm:hover{
-    opacity: 0.8;
-}
-
-.button-adm:active{
-    opacity: 0.6;
-}

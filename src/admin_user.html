@@ -11,7 +11,7 @@
 
 <body>
     <header>
-        <h1>Calculadora de Multas de Trânsito</h1>
+        <h1>Cadastro do Usuário</h1>
         <nav>
             <ul>
                 <li><a href="index.html">Início</a></li>
@@ -23,19 +23,29 @@
         </nav>
     </header>
     <div class="titulo">
-        <h1>Página Admin</h1>
+        <h1>Página do Administrador</h1>
     </div>
     <form id="userForm" class="container">
+        <input type="text" id="search" placeholder="Pesquisar...">
+        <br><br>
         <label for="username">Nome do Usuário:</label>
         <input type="text" id="username" required>
+        <br><br>
         <label for="email">E-mail:</label>
         <input type="email" id="email" required>
-        <button type="submit">Cadastrar</button>
-        <button type="button" id="clearForm">Limpar Formulário</button>
+        <br>
+        <button type="submit" class="calc_button">Cadastrar</button>
+        <br>
+        <button type="button" id="clearForm" class="calc_button">Limpar Formulário</button>
+        <br>
+        <button id="clearList" class="calc_button">Excluir Todos os Itens</button>
     </form>
-    <ul id="userList"></ul>
-    <button id="clearList">Excluir Todos os Itens</button>
-    <input type="text" id="search" placeholder="Pesquisar...">
+    <section class="listUsers">
+        <section class="users_cadastrados">
+            <h1>Usuários Cadastrados:</h1>
+        </section>
+        <ul id="userList"></ul>
+    </section>
 </body>
 <script src="./script/admin_users.js"></script>
 
